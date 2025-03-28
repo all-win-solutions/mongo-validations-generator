@@ -5,6 +5,7 @@ concurrency:
 
 on:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -17,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ vars.PYTHON_VERSION || 3.12 }}
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
@@ -45,7 +46,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ vars.PYTHON_VERSION || 3.12 }}
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v5

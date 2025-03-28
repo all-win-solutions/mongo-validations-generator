@@ -102,8 +102,6 @@ print(json.dumps(Product.generate_validation_rules("Product"), indent=2))
 
 The following BSON types are currently supported by the schema generator:
 
-The following BSON types are currently supported by the schema generator:
-
 | Python Type                    | BSON Type  | Notes                                                         |
 | ------------------------------ | ---------- | ------------------------------------------------------------- |
 | `str`                          | `"string"` |                                                               |

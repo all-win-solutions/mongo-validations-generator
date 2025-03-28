@@ -7,4 +7,5 @@
 # the following people will be requested for review
 # when someone opens a pull request.
 
+/.github/ @all-win-solutions/ci-cd-team
 * @all-win-solutions/python-team
