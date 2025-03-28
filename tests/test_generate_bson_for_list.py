@@ -77,6 +77,7 @@ expected_mock_class_bson_schema: dict[str, Any] = {
 
 
 def test_basic_bson_list_generation():
+    # Given: A class with different types of lists including optional and union types
     validation_title = "Test"
     expected_schema: dict[str, Any] = {
         "$jsonSchema": {
@@ -85,11 +86,15 @@ def test_basic_bson_list_generation():
         }
     }
 
+    # When: Generating BSON validation rules from the class
     actual_schema = MockClass.generate_validation_rules(validation_title)
+
+    # Then: The schema should match the expected structure
     assert actual_schema == expected_schema
 
 
 def test_nested_bson_list_generation():
+    # Given: A class containing a list of another MongoValidator-based class
     validation_title = "Test Nested"
     expected_schema: dict[str, Any] = {
         "$jsonSchema": {
@@ -106,11 +111,15 @@ def test_nested_bson_list_generation():
         }
     }
 
+    # When: Generating BSON validation rules from the nested class
     actual_schema = MyMockListClass.generate_validation_rules(validation_title)
+
+    # Then: The result should match the nested list schema
     assert actual_schema == expected_schema
 
 
 def test_list_without_type_bson_generation():
+    # Given: A class with a generic untyped list
     validation_title = "Untyped List"
     expected_schema: dict[str, Any] = {
         "$jsonSchema": {
@@ -126,11 +135,15 @@ def test_list_without_type_bson_generation():
         }
     }
 
+    # When: Generating BSON validation rules
     actual_schema = ListWithoutType.generate_validation_rules(validation_title)
+
+    # Then: The generated schema should reflect an untyped list
     assert actual_schema == expected_schema
 
 
 def test_list_with_len_bson_generation():
+    # Given: A class with a list annotated with length constraints
     validation_title = "List With Len"
     expected_schema: dict[str, Any] = {
         "$jsonSchema": {
@@ -149,11 +162,15 @@ def test_list_with_len_bson_generation():
         }
     }
 
+    # When: Generating BSON validation schema
     actual_schema = ListWithLen.generate_validation_rules(validation_title)
+
+    # Then: The schema should reflect the length constraints
     assert actual_schema == expected_schema
 
 
 def test_list_with_literal_bson_generation():
+    # Given: A class with a list of Literal values
     validation_title = "List With Literal"
     expected_schema: dict[str, Any] = {
         "$jsonSchema": {
@@ -170,11 +187,15 @@ def test_list_with_literal_bson_generation():
         }
     }
 
+    # When: Generating validation schema for literal values
     actual_schema = ListWithLiteral.generate_validation_rules(validation_title)
+
+    # Then: The schema must match the expected enum representation
     assert actual_schema == expected_schema
 
 
 def test_nested_list_bson_generation():
+    # Given: A class with a list of lists (matrix structure)
     validation_title = "Nested List"
     expected_schema: dict[str, Any] = {
         "$jsonSchema": {
@@ -194,11 +215,15 @@ def test_nested_list_bson_generation():
         }
     }
 
+    # When: Generating validation rules for nested lists
     actual_schema = NestedList.generate_validation_rules(validation_title)
+
+    # Then: The generated schema must reflect the matrix structure
     assert actual_schema == expected_schema
 
 
 def test_optional_list_of_model_bson_generation():
+    # Given: A class with an optional list of embedded models
     class Child(MongoValidator):
         field: int
 
@@ -235,5 +260,8 @@ def test_optional_list_of_model_bson_generation():
         }
     }
 
+    # When: Generating schema for optional embedded models
     actual_schema = Parent.generate_validation_rules(validation_title)
+
+    # Then: The schema must correctly handle optional list of nested models
     assert actual_schema == expected_schema
