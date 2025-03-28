@@ -8,8 +8,19 @@ version = "1.0.0"
 description = "Generate MongoDB validation schemas from Python type annotations and Pydantic models."
 readme = "README.md"
 requires-python = ">=3.12"
+license = { text = "BSD-3-Clause" }
 authors = [
     { name = "Alejandro Castillo", email = "alejandro@all-win.software" }
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Topic :: Database :: Front-Ends",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.12"
 ]
 dependencies = [
     "pydantic>=2.10.6",
