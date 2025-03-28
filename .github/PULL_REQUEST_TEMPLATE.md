@@ -1,6 +1,6 @@
 _Replace this paragraph with a description of what this PR is changing or adding, and why. Consider including before/after screenshots._
 
-## Pre-launch Checklist
+## Pre-merge Checklist
 
 - [ ] I read the [Contributor Guide] and followed the process outlined there for submitting PRs.
 - [ ] I ran `ruff format .` and `ruff check .` to ensure style compliance.
