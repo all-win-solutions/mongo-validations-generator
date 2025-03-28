@@ -8,12 +8,22 @@ version = "1.0.0"
 description = "Generate MongoDB validation schemas from Python type annotations and Pydantic models."
 readme = "README.md"
 requires-python = ">=3.12"
+authors = [
+    { name = "Alejandro Castillo", email = "alejandro@all-win.software" }
+]
 dependencies = [
     "pydantic>=2.10.6",
 ]
 
+[project.urls]
+Homepage = "https://github.com/all-win-solutions/mongo_validations_generator"
+Repository = "https://github.com/all-win-solutions/mongo_validations_generator"
+Issues = "https://github.com/all-win-solutions/mongo_validations_generator/issues"
+Changelog = "https://github.com/all-win-solutions/mongo_validations_generator/blob/main/CHANGELOG.md"
+
 [dependency-groups]
 dev = [
+    "mypy>=1.15.0",
     "pytest>=8.3.5",
     "ruff>=0.11.2",
 ]
