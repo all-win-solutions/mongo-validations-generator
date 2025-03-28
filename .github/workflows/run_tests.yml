@@ -1,0 +1,62 @@
+name: Run Tests
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+
+      - name: Install Dependencies
+        run: |
+          uv sync
+
+      - name: Lint
+        run: |
+          uv run mypy mongo_validations_generator
+          uv run ruff check mongo_validations_generator tests
+          uv run ruff format mongo_validations_generator tests --check
+
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+
+      - name: Install Dependencies
+        run: |
+          uv sync
+
+      - name: Run Tests
+        run: |
+          uv run pytest
