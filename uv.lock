@@ -11,7 +11,7 @@ wheels = [
 ]
 
 [[package]]
-name = "mongo-validator"
+name = "mongo-validations-generator"
 version = "1.0.0"
 source = { editable = "." }
 dependencies = [

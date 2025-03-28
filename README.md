@@ -1,6 +1,6 @@
-# mongo_validator
+# mongo_validations_generator
 
-**mongo_validator** is a lightweight Python library for generating MongoDB JSON Schema validation rules using standard Python type annotations and Pydantic models.
+**mongo_validations_generator** is a lightweight Python library for generating MongoDB JSON Schema validation rules using standard Python type annotations and Pydantic models.
 
 It allows you to define your MongoDB collection schemas declaratively with Python classes, while supporting advanced typing features like `Annotated`, `Literal`, `Union`, custom validation markers, and nested models.
 
@@ -24,7 +24,7 @@ It allows you to define your MongoDB collection schemas declaratively with Pytho
 
 ```python
 from annotated_types import Len
-from mongo_validator import MongoValidator, Long, SchemaIgnored
+from mongo_validations_generator import MongoValidator, Long, SchemaIgnored
 from typing import Annotated, Literal
 
 class Product(MongoValidator):
@@ -42,7 +42,7 @@ class Product(MongoValidator):
 ```python
 import json
 
-print(json.dumps(Product.validation_rules("Product"), indent=2))
+print(json.dumps(Product.generate_validation_rules("Product"), indent=2))
 ```
 
 #### output:

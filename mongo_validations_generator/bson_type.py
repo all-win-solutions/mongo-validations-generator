@@ -1,6 +1,6 @@
 from enum import StrEnum
 from typing import Any, List, Type, get_origin
-from mongo_validator.custom_types import Long
+from mongo_validations_generator.custom_types import Long
 
 
 class BSONType(StrEnum):
