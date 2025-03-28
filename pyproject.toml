@@ -1,9 +1,9 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
-name = "mongo-validator"
+name = "mongo_validations_generator"
 version = "1.0.0"
 description = "Generate MongoDB validation schemas from Python type annotations and Pydantic models."
 readme = "README.md"
@@ -16,3 +16,10 @@ dependencies = [
 dev = [
     "ruff>=0.11.2",
 ]
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = "mongo_validations_generator.*"
+check_untyped_defs = true

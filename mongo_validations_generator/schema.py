@@ -2,8 +2,8 @@ from types import UnionType
 from typing import Annotated, Any, Callable, List, Literal, Union, get_args, get_origin
 from annotated_types import Len
 
-from mongo_validator.bson_type import BSONType, get_bson_type_for
-from mongo_validator.custom_types import Long
+from mongo_validations_generator.bson_type import BSONType, get_bson_type_for
+from mongo_validations_generator.custom_types import Long
 
 BSONSchemaCallback = Callable[[Any], dict[str, Any] | None]
 

@@ -1,14 +1,14 @@
 from typing import Any, get_type_hints
 from pydantic import BaseModel
-from mongo_validator.schema import build_bson_schema, unwrap_annotated
-from mongo_validator.custom_types import SchemaIgnored
+from mongo_validations_generator.schema import build_bson_schema, unwrap_annotated
+from mongo_validations_generator.custom_types import SchemaIgnored
 
 Dict = dict[str, Any]
 
 
 class MongoValidator(BaseModel):
     @classmethod
-    def validation_rules(cls, title: str) -> Dict:
+    def generate_validation_rules(cls, title: str) -> Dict:
         """
         Generates a MongoDB JSON schema validation rule for the class.
 
