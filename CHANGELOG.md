@@ -6,6 +6,7 @@
   - Serializes to `str` in `model_dump()` (e.g., `"123.45"`)
   - Integrated into schema generation with `bsonType: "decimal"`
 - New type mapping in `TYPE_MAP`: `BSONDecimal128 -> "decimal"`
+- **Added `pymongo` as a required dependency** to enable support for `Decimal128`
 
 ## 1.0.0
 
