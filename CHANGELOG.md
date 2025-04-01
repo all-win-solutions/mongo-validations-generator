@@ -1,6 +1,6 @@
 ## 1.0.0
 
-Initial stable release of `mongo_validations_generator`.
+Initial stable release of `mongo-validations-generator`.
 
 ### Features
 

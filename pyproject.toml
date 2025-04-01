@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mongo_validations_generator"
+name = "mongo-validations-generator"
 version = "1.0.0"
 description = "Generate MongoDB validation schemas from Python type annotations and Pydantic models."
 readme = "README.md"
@@ -27,10 +27,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/all-win-solutions/mongo_validations_generator"
-Repository = "https://github.com/all-win-solutions/mongo_validations_generator"
-Issues = "https://github.com/all-win-solutions/mongo_validations_generator/issues"
-Changelog = "https://github.com/all-win-solutions/mongo_validations_generator/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/all-win-solutions/mongo-validations-generator"
+Repository = "https://github.com/all-win-solutions/mongo-validations-generator"
+Issues = "https://github.com/all-win-solutions/mongo-validations-generator/issues"
+Changelog = "https://github.com/all-win-solutions/mongo-validations-generator/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
