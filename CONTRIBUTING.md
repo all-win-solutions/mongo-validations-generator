@@ -1,6 +1,6 @@
-# Contributing to mongo_validations_generator
+# Contributing to mongo-validations-generator
 
-First off, thanks for taking the time to contribute to _mongo_validations_generator_! Your help is welcome and appreciated 🙌
+First off, thanks for taking the time to contribute to _mongo-validations-generator_! Your help is welcome and appreciated 🙌
 
 This document outlines the guidelines for contributing to the project.
 

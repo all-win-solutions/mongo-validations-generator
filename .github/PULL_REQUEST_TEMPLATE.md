@@ -14,4 +14,4 @@ _Replace this paragraph with a description of what this PR is changing or adding
 
 <!-- Links -->
 
-[Contributor Guide]: https://github.com/all-win-solutions/mongo_validations_generator/blob/main/CONTRIBUTING.md
+[Contributor Guide]: https://github.com/all-win-solutions/mongo-validations-generator/blob/main/CONTRIBUTING.md
