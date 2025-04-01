@@ -36,10 +36,10 @@ class BSONDecimal128:
                 {"value": value},
             )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"BSONDecimal128({str(self)})"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.value)
 
     def to_decimal(self) -> Decimal:

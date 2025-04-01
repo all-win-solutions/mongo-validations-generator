@@ -102,17 +102,18 @@ print(json.dumps(Product.generate_validation_rules("Product"), indent=2))
 
 The following BSON types are currently supported by the schema generator:
 
-| Python Type                    | BSON Type  | Notes                                                         |
-| ------------------------------ | ---------- | ------------------------------------------------------------- |
-| `str`                          | `"string"` |                                                               |
-| `int`                          | `"int"`    |                                                               |
-| `float`                        | `"double"` |                                                               |
-| `bool`                         | `"bool"`   |                                                               |
-| `list[...]`                    | `"array"`  | Supports nested items, constraints, and unions                |
-| `None` / `Optional[...]`       | `"null"`   | Supports `Union[Type, None]` and `Optional[...]`              |
-| `Annotated[int, Long]`         | `"long"`   | Use `Annotated[int, Long]` to convert to `"long"`             |
-| `Literal[...]`                 | `"enum"`   | Will emit enum values and infer BSON type if homogeneous      |
-| `MongoValidator` subclass      | `"object"` | Nested objects are fully supported                            |
-| `Annotated[list[T], Len(...)]` | `"array"`  | Adds `minItems` and `maxItems` constraints to list validation |
+| Python Type                    | BSON Type   | Notes                                                                |
+| ------------------------------ | ----------- | -------------------------------------------------------------------- |
+| `str`                          | `"string"`  |                                                                      |
+| `int`                          | `"int"`     |                                                                      |
+| `float`                        | `"double"`  |                                                                      |
+| `bool`                         | `"bool"`    |                                                                      |
+| `list[...]`                    | `"array"`   | Supports nested items, constraints, and unions                       |
+| `None` / `Optional[...]`       | `"null"`    | Supports `Union[Type, None]` and `Optional[...]`                     |
+| `Annotated[int, Long]`         | `"long"`    | Use `Annotated[int, Long]` to convert to `"long"`                    |
+| `Literal[...]`                 | `"enum"`    | Will emit enum values and infer BSON type if homogeneous             |
+| `MongoValidator` subclass      | `"object"`  | Nested objects are fully supported                                   |
+| `Annotated[list[T], Len(...)]` | `"array"`   | Adds `minItems` and `maxItems` constraints to list validation        |
+| `BSONDecimal128`               | `"decimal"` | Outputs a decimal-compatible field using MongoDB's Decimal128 format |
 
 > ❗ Not supported: `dict`, `set`, `tuple`, `frozenset`, or other complex built-in containers.

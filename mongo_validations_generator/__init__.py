@@ -1,4 +1,11 @@
-from .core import MongoValidator as MongoValidator
-from .bson_type import BSONType as BSONType
-from .custom_types import Long as Long
-from .custom_types import SchemaIgnored as SchemaIgnored
+from .core import MongoValidator
+from .bson_type import BSONType
+from .custom_types import Long, SchemaIgnored, BSONDecimal128
+
+__all__ = [
+    "MongoValidator",
+    "BSONType",
+    "Long",
+    "SchemaIgnored",
+    "BSONDecimal128",
+]
