@@ -24,6 +24,7 @@ classifiers = [
 ]
 dependencies = [
     "pydantic>=2.10.6",
+    "pymongo>=4.11.3",
 ]
 
 [project.urls]

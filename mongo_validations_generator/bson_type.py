@@ -42,7 +42,7 @@ def get_bson_type_for(type_hint: Any) -> str | None:
     """
     for base in TYPE_MAP:
         if type_hint is bool:
-            return TYPE_MAP[bool]
+            return BSONType.BOOL.value
 
         if isinstance(type_hint, type) and issubclass(type_hint, base):
             return TYPE_MAP[base]
@@ -50,6 +50,6 @@ def get_bson_type_for(type_hint: Any) -> str | None:
     origin = get_origin(type_hint)
 
     if origin in (list, List):
-        return TYPE_MAP.get(list)
+        return BSONType.ARRAY.value
 
     return None
