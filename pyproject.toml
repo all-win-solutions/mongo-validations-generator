@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mongo-validations-generator"
-version = "1.0.0"
+version = "1.1.0"
 description = "Generate MongoDB validation schemas from Python type annotations and Pydantic models."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -24,6 +24,7 @@ classifiers = [
 ]
 dependencies = [
     "pydantic>=2.10.6",
+    "pymongo>=4.11.3",
 ]
 
 [project.urls]

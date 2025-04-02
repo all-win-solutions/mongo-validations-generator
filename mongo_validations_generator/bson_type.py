@@ -1,6 +1,6 @@
 from enum import StrEnum
 from typing import Any, List, Type, get_origin
-from mongo_validations_generator.custom_types import Long
+from mongo_validations_generator.custom_types import Long, BSONDecimal128
 
 
 class BSONType(StrEnum):
@@ -12,6 +12,7 @@ class BSONType(StrEnum):
     NULL = "null"
     INT = "int"
     LONG = "long"
+    DECIMAL128 = "decimal"
 
 
 TYPE_MAP: dict[Type[Any], str] = {
@@ -22,6 +23,7 @@ TYPE_MAP: dict[Type[Any], str] = {
     list: BSONType.ARRAY.value,
     type(None): BSONType.NULL.value,
     Long: BSONType.LONG.value,
+    BSONDecimal128: BSONType.DECIMAL128.value,
 }
 
 
@@ -42,7 +44,7 @@ def get_bson_type_for(type_hint: Any) -> str | None:
     """
     for base in TYPE_MAP:
         if type_hint is bool:
-            return TYPE_MAP[bool]
+            return BSONType.BOOL.value
 
         if isinstance(type_hint, type) and issubclass(type_hint, base):
             return TYPE_MAP[base]
@@ -50,6 +52,6 @@ def get_bson_type_for(type_hint: Any) -> str | None:
     origin = get_origin(type_hint)
 
     if origin in (list, List):
-        return TYPE_MAP.get(list)
+        return BSONType.ARRAY.value
 
     return None

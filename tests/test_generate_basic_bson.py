@@ -1,5 +1,10 @@
 from typing import Annotated, Any
-from mongo_validations_generator import MongoValidator, Long, SchemaIgnored
+from mongo_validations_generator import (
+    MongoValidator,
+    Long,
+    SchemaIgnored,
+    BSONDecimal128,
+)
 
 
 class BasicMockClass(MongoValidator):
@@ -8,11 +13,13 @@ class BasicMockClass(MongoValidator):
     my_float: float
     my_bool: bool
     my_long: Annotated[int, Long]
+    my_decimal: BSONDecimal128
     my_str_optional: str | None
     my_int_optional: int | None
     my_float_optional: float | None
     my_bool_optional: bool | None
     my_long_optional: Annotated[int, Long] | None
+    my_decimal_optional: BSONDecimal128 | None
     my_hidden_property: Annotated[str, SchemaIgnored]
 
 
@@ -29,11 +36,13 @@ def test_basic_bson_generation():
                 "my_float",
                 "my_bool",
                 "my_long",
+                "my_decimal",
                 "my_str_optional",
                 "my_int_optional",
                 "my_float_optional",
                 "my_bool_optional",
                 "my_long_optional",
+                "my_decimal_optional",
             ],
             "properties": {
                 "my_str": {
@@ -56,6 +65,10 @@ def test_basic_bson_generation():
                     "bsonType": "long",
                     "description": "'my_long' must match schema",
                 },
+                "my_decimal": {
+                    "bsonType": "decimal",
+                    "description": "'my_decimal' must match schema",
+                },
                 "my_str_optional": {
                     "oneOf": [{"bsonType": "string"}, {"bsonType": "null"}],
                     "description": "'my_str_optional' must match schema",
@@ -75,6 +88,10 @@ def test_basic_bson_generation():
                 "my_long_optional": {
                     "oneOf": [{"bsonType": "long"}, {"bsonType": "null"}],
                     "description": "'my_long_optional' must match schema",
+                },
+                "my_decimal_optional": {
+                    "oneOf": [{"bsonType": "decimal"}, {"bsonType": "null"}],
+                    "description": "'my_decimal_optional' must match schema",
                 },
             },
         }
