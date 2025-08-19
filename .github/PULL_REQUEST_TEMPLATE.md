@@ -7,7 +7,7 @@ _Replace this paragraph with a description of what this PR is changing or adding
 - [ ] I ran `mypy mongo_validations_generator` and resolved any typing issues.
 - [ ] I updated `pyproject.toml` with an appropriate new version.
 - [ ] I updated `CHANGELOG.md` to add a description of the change.
-- [ ] I updated/added relevant documentation (doc comments with `///`).
+- [ ] I updated/added relevant documentation (doc comments with `"""`).
 - [ ] I added or updated tests as needed, or this change does not require new tests.
 - [ ] All existing tests are passing.
 

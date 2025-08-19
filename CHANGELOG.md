@@ -1,3 +1,10 @@
+## 1.2.0
+
+- Added native support for Python's standard library `Enum` type:
+  - Fields defined with `Enum` are now automatically mapped to the BSON `enum` validator.
+  - This behaves similarly to `Literal`, generating a list of allowed values in the schema.
+- Added new tests to ensure correct schema generation for Enum fields.
+
 ## 1.1.0
 
 - Support for `BSONDecimal128` as a custom scalar type:

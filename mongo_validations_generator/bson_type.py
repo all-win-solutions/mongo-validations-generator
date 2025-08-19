@@ -1,4 +1,4 @@
-from enum import StrEnum
+from enum import Enum, StrEnum
 from typing import Any, List, Type, get_origin
 from mongo_validations_generator.custom_types import Long, BSONDecimal128
 
@@ -6,6 +6,7 @@ from mongo_validations_generator.custom_types import Long, BSONDecimal128
 class BSONType(StrEnum):
     DOUBLE = "double"
     STRING = "string"
+    ENUM = "enum"
     OBJECT = "object"
     ARRAY = "array"
     BOOL = "bool"
@@ -16,6 +17,7 @@ class BSONType(StrEnum):
 
 
 TYPE_MAP: dict[Type[Any], str] = {
+    Enum: BSONType.ENUM,
     str: BSONType.STRING.value,
     int: BSONType.INT.value,
     float: BSONType.DOUBLE.value,

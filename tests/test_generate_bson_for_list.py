@@ -1,7 +1,14 @@
+from enum import StrEnum
 from typing import Annotated, Any, List, Literal, Optional
 
 from annotated_types import Len
 from mongo_validations_generator import MongoValidator
+
+
+class StatusMockClass(StrEnum):
+    LOADING = "loading"
+    SUCCESS = "success"
+    FAILURE = "failure"
 
 
 class MockClass(MongoValidator):
@@ -10,6 +17,7 @@ class MockClass(MongoValidator):
     my_float_list: list[float]
     my_optional_list: list[str] | None
     my_int_or_bool_list: list[int | bool]
+    my_enum_list: list[StatusMockClass]
 
 
 class MyMockListClass(MongoValidator):
@@ -40,6 +48,7 @@ expected_mock_class_bson_schema: dict[str, Any] = {
         "my_float_list",
         "my_optional_list",
         "my_int_or_bool_list",
+        "my_enum_list",
     ],
     "properties": {
         "my_str_list": {
@@ -71,6 +80,14 @@ expected_mock_class_bson_schema: dict[str, Any] = {
             "bsonType": "array",
             "items": {"oneOf": [{"bsonType": "int"}, {"bsonType": "bool"}]},
             "description": "'my_int_or_bool_list' must match schema",
+        },
+        "my_enum_list": {
+            "bsonType": "array",
+            "items": {
+                "enum": ["loading", "success", "failure"],
+                "bsonType": "string",
+            },
+            "description": "'my_enum_list' must match schema",
         },
     },
 }

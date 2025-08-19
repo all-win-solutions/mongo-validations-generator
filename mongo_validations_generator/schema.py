@@ -7,6 +7,8 @@ from mongo_validations_generator.custom_types import Long
 
 BSONSchemaCallback = Callable[[Any], dict[str, Any] | None]
 
+# MARK: Unwrap Annotated
+
 
 def unwrap_annotated(type_hint: Any) -> tuple[Any, tuple[Any, ...]]:
     """
@@ -28,6 +30,9 @@ def unwrap_annotated(type_hint: Any) -> tuple[Any, tuple[Any, ...]]:
         return base, tuple(annotations)
 
     return type_hint, ()
+
+
+# MARK: Build BSON Schema
 
 
 def build_bson_schema(
@@ -87,10 +92,16 @@ def build_bson_schema(
 
     bson_type = get_bson_type_for(type_hint)
 
+    if bson_type == BSONType.ENUM:
+        return build_bson_schema_for_enum(type_hint)
+
     if bson_type:
         return {"bsonType": bson_type}
 
     raise ValueError(f"Property type not supported: {type_hint}")
+
+
+# MARK: Schema for Union
 
 
 def build_bson_schema_for_union(
@@ -121,6 +132,9 @@ def build_bson_schema_for_union(
     args = get_args(type_hint)
     options = [build_bson_schema(t, get_bson_schema_for) for t in args]
     return next(iter(options)) if len(options) == 1 else {"oneOf": options}
+
+
+# MARK: Schema for List
 
 
 def build_bson_schema_for_list(
@@ -172,6 +186,9 @@ def build_bson_schema_for_list(
     return schema
 
 
+# MARK: Schema for Literal
+
+
 def build_bson_schema_for_literal(type_hint: Any) -> dict[str, Any]:
     """
     Builds a BSON schema for a Literal type.
@@ -188,15 +205,69 @@ def build_bson_schema_for_literal(type_hint: Any) -> dict[str, Any]:
             the corresponding "bsonType" is included.
 
     Behavior:
-        - Extracts all allowed literal values and places them under the "enum" key.
-        - If all literals are of the same base type and it maps to a BSON type
-          (e.g., all strings or all integers), it adds a "bsonType" key.
+        - Extracts all allowed literal values from the `Literal` type hint.
+        - Delegates the core schema creation to `build_bson_enum_schema`.
+        - The resulting schema contains an "enum" key with the literal values.
+        - If all literals share a common, mappable Python type, a "bsonType" key
+          is also included.
     """
     args = get_args(type_hint)
-    types: list[type[Any]] = [type(arg) for arg in args]
+    return build_bson_enum_schema(list(args))
 
-    literal_types: set[type[Any]] = set(types)
-    schema: dict[str, Any] = {"enum": list(args)}
+
+# MARK: Schema for Enum
+
+
+def build_bson_schema_for_enum(type_hint: Any) -> dict[str, Any]:
+    """
+    Builds a BSON schema for a standard `enum.Enum` type.
+
+    This function extracts the values of each member of an `Enum` and uses them
+    to create a BSON schema with an "enum" constraint.
+
+    Args:
+        type_hint (Any): The `Enum` class itself (not an instance).
+
+    Returns:
+        Dict (dict[str, Any]): A BSON schema dictionary for the enum.
+
+    Behavior:
+        - Iterates through the members of the input `Enum` class.
+        - Extracts the `.value` from each member to create a list of allowed values.
+        - Passes the list of extracted values to `build_bson_enum_schema` to construct
+          the final schema.
+    """
+    enum_values = [member.value for member in type_hint]
+    return build_bson_enum_schema(enum_values)
+
+
+# MARK: Enum Schema
+
+
+def build_bson_enum_schema(values: list[Any]) -> dict[str, Any]:
+    """
+    Builds a BSON schema for a set of enum-like values.
+
+    This helper function constructs the core BSON schema for an enumeration. It populates
+    the "enum" field and conditionally adds a "bsonType" for stricter validation.
+
+    Args:
+        values (list[Any]): The list of allowed values for the enumeration.
+
+    Returns:
+        Dict (dict[str, Any]): BSON schema with an "enum" key and an optional "bsonType" key.
+
+    Behavior:
+        - Creates a base schema with an "enum" key containing the provided `values`.
+        - Inspects the Python type of each value in the list.
+        - If all values are of the same type and that type maps to a known BSON type,
+          it adds a "bsonType" key to the schema.
+        - If types are mixed or unmappable, the "bsonType" key is omitted.
+    """
+    types: list[type[Any]] = [type(value) for value in values]
+    literal_types = set(types)
+
+    schema: dict[str, Any] = {"enum": values}
 
     if len(literal_types) == 1:
         bson_type = get_bson_type_for(next(iter(literal_types)))
